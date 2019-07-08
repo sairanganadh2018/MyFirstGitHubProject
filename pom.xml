@@ -45,7 +45,7 @@
 						          <jmeterExtensions>
             <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
 
-            <artifactId>kg.apc:jmeter-plugins-extras-libs:1.4.0</artifactId>
+            
 		
 
           </jmeterExtensions>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -103,3 +104,85 @@
     </plugins>
 </build>
 </project>
+=======
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example1</groupId>
+  <artifactId>jmeter_demo</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>jmeter_demo</name>
+  <url>http://maven.apache.org</url>
+  	<properties>
+    <maven.compiler.source>7</maven.compiler.source>
+    <maven.compiler.target>7</maven.compiler.target>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+     <plugins>
+        <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>2.9.0</version>
+			                <configuration>
+                    <propertiesUser>
+
+                        <URL>${URL}</URL>
+                    </propertiesUser>
+					    <testFilesIncluded>
+                            <jMeterTestFile>Load.jmx</jMeterTestFile>
+                           
+                        </testFilesIncluded>
+						<testResultsTimestamp>false</testResultsTimestamp>
+						<ignoreResultFailures>true</ignoreResultFailures>
+						<suppressJMeterOutput>false</suppressJMeterOutput>
+						<generateReports>false</generateReports> 
+						<resultsFileFormat>xml</resultsFileFormat>
+						<testResultsTimestamp>false</testResultsTimestamp>
+						
+						<resultsDirectory>C:\jmeter_demo\Results\Load</resultsDirectory>
+						          <jmeterExtensions>
+            <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
+
+            <artifactId>kg.apc:jmeter-plugins-extras-libs:1.4.0</artifactId>
+		
+
+          </jmeterExtensions>
+                    <!--<proxyConfig>-->
+                    <!--<host>localhost</host>-->
+                    <!--<port>8888</port>-->
+                    <!--<username>jimbob</username>-->
+                    <!--<password>correct horse battery staple</password>-->
+                    <!--<hostExclusions>localhost|*.lazerycode.com</hostExclusions>-->
+                    <!--</proxyConfig>-->
+
+
+
+
+                
+
+                </configuration>
+            <executions>
+                <execution>
+                    <id>jmeter-tests</id>
+                    <goals>
+                        <goal>jmeter</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+		
+		
+	
+    </plugins>
+</build>
+</project>
+>>>>>>> 0d4d6429f814f888933956c42cb34d05e33a68d7

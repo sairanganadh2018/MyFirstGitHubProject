@@ -34,10 +34,7 @@
                 </execution>
             </executions>
 			<configuration>
-                    <propertiesUser>
 
-						<URL>${URL}</URL>
-                    </propertiesUser>
 					
 						<testResultsTimestamp>false</testResultsTimestamp>
 						<ignoreResultFailures>true</ignoreResultFailures>

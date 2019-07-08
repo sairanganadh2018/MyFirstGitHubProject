@@ -20,20 +20,28 @@
     </dependency>
   </dependencies>
   <build>
-     <plugins>
+  <plugins>
         <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>2.9.0</version>
-			    <configuration>
+            <executions>
+                <execution>
+                    <id>jmeter-tests</id>
+                    <goals>
+                        <goal>jmeter</goal>
+                    </goals>
+                </execution>
+            </executions>
+			<configuration>
                     <propertiesUser>
 
-                    <URL>${URL}</URL>
+						<URL>${URL}</URL>
                     </propertiesUser>
-					    <testFilesIncluded>
+					<testFilesIncluded>
                             <jMeterTestFile>Load.jmx</jMeterTestFile>
                            
-                        </testFilesIncluded>
+                    </testFilesIncluded>
 						<testResultsTimestamp>false</testResultsTimestamp>
 						<ignoreResultFailures>true</ignoreResultFailures>
 						<suppressJMeterOutput>false</suppressJMeterOutput>
@@ -42,7 +50,7 @@
 						<testResultsTimestamp>false</testResultsTimestamp>
 						
 						
-<jmeterPlugins>
+					<jmeterPlugins>
                         <plugin>
                             <groupId>kg.apc</groupId>
                             <artifactId>jmeter-plugins</artifactId>
@@ -117,16 +125,9 @@
                         </exclusions>
                     </dependency>
                 </dependencies>
-            <executions>
-                <execution>
-                    <id>jmeter-tests</id>
-                    <goals>
-                        <goal>jmeter</goal>
-                    </goals>
-                </execution>
-            </executions>
+			
         </plugin>
-		
+    	
 		<plugin>
                 <groupId>de.codecentric</groupId>
                 <artifactId>jmeter-graph-maven-plugin</artifactId>

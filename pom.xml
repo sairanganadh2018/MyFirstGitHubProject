@@ -44,12 +44,7 @@
 						<testResultsTimestamp>false</testResultsTimestamp>
 						
 						
-					<jmeterPlugins>
-                        <plugin>
-                            <groupId>kg.apc</groupId>
-                            <artifactId>jmeter-plugins</artifactId>
-                        </plugin>
-                    </jmeterPlugins>
+
                     <!--<proxyConfig>-->
                     <!--<host>localhost</host>-->
                     <!--<port>8888</port>-->

@@ -1,4 +1,4 @@
-package com.m86074TestSetupV1;
+package com.demo1;
 
 /**
  * Hello world!

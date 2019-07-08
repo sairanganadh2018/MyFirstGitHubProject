@@ -52,7 +52,20 @@
                     <!--<password>correct horse battery staple</password>-->
                     <!--<hostExclusions>localhost|*.lazerycode.com</hostExclusions>-->
                     <!--</proxyConfig>-->
-
+<jmeterExtensions>
+                    <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
+					<artifact>kg.apc:jmeter-plugins-graphs-vs:2.0</artifact>                    
+                </jmeterExtensions>
+                <excludedArtifacts>
+                    <exclusion>org.slf4j:slf4j-nop</exclusion>
+                    <exclusion>avalon-framework:*</exclusion>
+                    <exclusion>org.apache.tika:*</exclusion>
+                    <exclusion>excalibur-datasource:excalibur-datasource</exclusion>
+                    <exclusion>excalibur-instrument:excalibur-instrument</exclusion>
+                    <exclusion>excalibur-logger:excalibur-logger</exclusion>
+                    <exclusion>excalibur-pool:*</exclusion>
+                    <exclusion>org.beanshell:bsh:jar:2.0b5</exclusion>
+                </excludedArtifacts>
 
 
 

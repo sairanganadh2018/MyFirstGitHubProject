@@ -42,7 +42,7 @@
 						<resultsFileFormat>xml</resultsFileFormat>
 						<testResultsTimestamp>false</testResultsTimestamp>
 						
-						<resultsDirectory>C:\jmeter_demo\Results\Load</resultsDirectory>
+						
 						          <jmeterExtensions>
             <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
 

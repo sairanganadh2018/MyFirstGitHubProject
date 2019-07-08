@@ -38,10 +38,7 @@
 
 						<URL>${URL}</URL>
                     </propertiesUser>
-					<testFilesIncluded>
-                            <jMeterTestFile>Load.jmx</jMeterTestFile>
-                           
-                    </testFilesIncluded>
+					
 						<testResultsTimestamp>false</testResultsTimestamp>
 						<ignoreResultFailures>true</ignoreResultFailures>
 						<suppressJMeterOutput>false</suppressJMeterOutput>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jmeter.demo</groupId>
+    <artifactId>jmeter-demo-script</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <encoding>UTF-8</encoding>
+        <maven.build.timestamp.format>yyyyMMdd_HHmm</maven.build.timestamp.format>
+
+        <!-- Settings for Perfana dashboard -->
+        <perfana.application>Blazedemo</perfana.application>
+        <perfana.applicationRelease>10072019</perfana.applicationRelease>
+
+        <!-- influxdb server -->
+        <test.influxdb.url>http://localhost:8086</test.influxdb.url>
+
+        <!-- By default Jenkins build Url is used -->
+        <perfana.buildResultsUrl>${BUILD_URL}</perfana.buildResultsUrl>
+
+
+
+
+    </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                    <version>2.9.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <configuration>
+                    
+					<jmeterExtensions>
+						<artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
+					</jmeterExtensions>
+					<downloadExtensionDependencies>false</downloadExtensionDependencies>
+					<exclusions>
+						<exclusion>
+							<artifactId>commons-math3</artifactId>
+							<groupId>commons-math3</groupId>
+						</exclusion>
+						<exclusion>
+							<artifactId>commons-pool2</artifactId>
+							<groupId>commons-pool2</groupId>
+						</exclusion>
+					</exclusions>
+					<resultsFileFormat>xml</resultsFileFormat>
+                    <generateReports>false</generateReports>
+                    <ignoreResultFailures>true</ignoreResultFailures>
+					<suppressJMeterOutput>false</suppressJMeterOutput>
+					<testResultsTimestamp>false</testResultsTimestamp>
+                    <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+					<propertiesUser>
+
+                        <test.duration>${test.duration}</test.duration>
+                        <test.threads>${test.threads}</test.threads>
+                        <test.rampup>${test.rampup}</test.rampup>
+                        <test.throughput>${test.throughput}</test.throughput>
+                        <test.productHost>${test.productHost}</test.productHost>
+						
+                        
+                        <test.influxdb.url>${test.influxdb.url}</test.influxdb.url>
+                        <!--<test.application>${perfana.application}</test.application>-->
+
+
+                    </propertiesUser>
+                    <!--<proxyConfig>-->
+                    <!--<host>localhost</host>-->
+                    <!--<port>8888</port>-->
+                    <!--<username>jimbob</username>-->
+                    <!--<password>correct horse battery staple</password>-->
+                    <!--<hostExclusions>localhost|*.lazerycode.com</hostExclusions>-->
+                    <!--</proxyConfig>-->
+                    <!--<jMeterProcessJVMSettings>
+                        <xms>1024</xms>
+                        <xmx>1024</xmx>
+                    </jMeterProcessJVMSettings>-->
+
+                    <!--<jmeterExtensions>-->
+                        <!--<artifact>kg.apc:jmeter-plugins-standard:jar:1.4.0</artifact>-->
+                    <!--</jmeterExtensions>-->
+
+                    <!--<overrideRootLogLevel>debug</overrideRootLogLevel>-->
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                </executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.commons</groupId>
+						<artifactId>commons-math3</artifactId>
+						<version>3.4.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.commons</groupId>
+						<artifactId>commons-pool2</artifactId>
+						<version>2.3</version>
+					</dependency>
+				</dependencies>
+            </plugin>
+			
+			
+			<plugin>
+                <groupId>de.codecentric</groupId>
+                <artifactId>jmeter-graph-maven-plugin</artifactId>
+                <version>0.1.0</version>
+                <executions>
+                    <execution>
+                        <id>create-graph-threads</id>
+                        <goals>
+                            <goal>create-graph</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputFile>${project.build.directory}/jmeter/results/Load_JmeterMaven.jtl</inputFile>
+                    <graphs>
+                        <graph>
+                            <pluginType>ThreadsStateOverTime</pluginType>
+                            <width>800</width>
+                            <height>600</height>
+                            <outputFile>${project.build.directory}/jmeter/results/ThreadsStateOverTime.png</outputFile>
+                        </graph>
+                        <graph>
+                            <pluginType>ResponseTimesOverTime</pluginType>
+                            <width>800</width>
+                            <height>600</height>
+                            <outputFile>${project.build.directory}/jmeter/results/ResponseTimesOverTime.png</outputFile>
+                        </graph>
+                        <graph>
+                            <pluginType>TransactionsPerSecond</pluginType>
+                            <width>800</width>
+                            <height>600</height>
+                            <outputFile>${project.build.directory}/jmeter/results/TransactionsPerSecond.png</outputFile>
+                        </graph>
+                   </graphs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <!-- ************************************************************************ ==
+          == Below we have defined two sets of profiles, which control the type of    ==
+          == test that will be run and the targeted environment. If you wish to run a ==
+          == stress test on acc env, you can activate the stress and acc profiles:    ==
+          ==                                                                          ==
+          == mvn verify -Pstress -Pacc                                                ==
+          == ************************************************************************ -->
+
+        <!-- Test Profiles
+        <profile>
+            <id>stress</id>
+            <activation/>
+            <properties>
+                <perfana.testType>stressTest</perfana.testType>
+                <testRunId>${perfana.application}-${perfana.applicationRelease}-stressTest-${maven.build.timestamp}</testRunId>
+                <test.duration>900</test.duration>
+                <test.threads>50</test.threads>
+                <test.rampup>300</test.rampup>
+            </properties>
+        </profile>-->
+
+        <profile>
+            <id>load</id>
+            <activation/>
+            <properties>
+                <perfana.testType>loadTest</perfana.testType>
+                <!--<testRunId>${perfana.application}-${perfana.applicationRelease}-loadTest-${maven.build.timestamp}</testRunId>-->
+                <test.duration>600</test.duration>
+                <test.threads>20</test.threads>
+                <test.rampup>30</test.rampup>
+            </properties>
+        </profile>
+        <!--<profile>
+            <id>endurance</id>
+            <activation/>
+            <properties>
+                <perfana.testType>enduranceTest</perfana.testType>
+                <testRunId>${perfana.application}-${perfana.applicationRelease}-endurance-${maven.build.timestamp}</testRunId>
+                <test.duration>174600</test.duration>
+                <test.threads>100</test.threads>
+                <test.rampup>300</test.rampup>
+            </properties>
+        </profile>-->
+
+        <!-- Test Environments 
+
+        <profile>
+            <id>acc</id>
+            <activation/>
+            <properties>
+                <test.productHost>mean</test.productHost>
+                <test.productPort>3000</test.productPort>
+            </properties>
+        </profile>-->
+        <profile>
+            <id>local</id>
+            <activation/>
+            <properties>
+                <test.productHost>blazedemo.com</test.productHost>
+                
+            </properties>
+        </profile>
+
+    </profiles>
+</project>

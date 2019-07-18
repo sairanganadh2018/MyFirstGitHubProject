@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSet>
+
+    <avgRespTimeTest>
+    <testName>TestIntegration</testName>
+    <description>Verify average Thread2 _03_ClickResult times</description>
+    <transactionName>Thread2 _03_ClickResult</transactionName>
+    <regexp/>
+    <maxAvgRespTime>400</maxAvgRespTime>
+</avgRespTimeTest>
+
+</testSet>

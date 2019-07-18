@@ -3,26 +3,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jmeter.demo</groupId>
-    <artifactId>jmeter-Github-Maven-Jenkins</artifactId>
+    <artifactId>jmeter-demo-Local</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <encoding>UTF-8</encoding>
-        <maven.build.timestamp.format>yyyyMMdd_HHmm</maven.build.timestamp.format>
-
-        <!-- Settings for Perfana dashboard -->
-        <perfana.application>Blazedemo</perfana.application>
-        <perfana.applicationRelease>10072019</perfana.applicationRelease>
-
-        <!-- influxdb server -->
-        <test.influxdb.url>http://localhost:8086</test.influxdb.url>
-
-        <!-- By default Jenkins build Url is used -->
-        <perfana.buildResultsUrl>${BUILD_URL}</perfana.buildResultsUrl>
-
-
-
-
+    <properties>    
+        <!-- <jmeter-lightning-maven-plugin.version>2.0.0</jmeter-lightning-maven-plugin.version> -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    
     </properties>
     <build>
         <pluginManagement>
@@ -130,28 +118,45 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <inputFile>${project.build.directory}/jmeter/results/Load_JmeterMaven.jtl</inputFile>
+                    <inputFile>${project.build.directory}\jmeter\results\TestIntegration.jtl</inputFile>
                     <graphs>
                         <graph>
                             <pluginType>ThreadsStateOverTime</pluginType>
                             <width>800</width>
                             <height>600</height>
-                            <outputFile>${project.build.directory}/jmeter/results/ThreadsStateOverTime.png</outputFile>
+                            <outputFile>${project.build.directory}\jmeter\results\ThreadsStateOverTime.png</outputFile>
                         </graph>
                         <graph>
                             <pluginType>ResponseTimesOverTime</pluginType>
                             <width>800</width>
                             <height>600</height>
-                            <outputFile>${project.build.directory}/jmeter/results/ResponseTimesOverTime.png</outputFile>
+                            <outputFile>${project.build.directory}\jmeter\results\ResponseTimesOverTime.png</outputFile>
                         </graph>
                         <graph>
                             <pluginType>TransactionsPerSecond</pluginType>
                             <width>800</width>
                             <height>600</height>
-                            <outputFile>${project.build.directory}/jmeter/results/TransactionsPerSecond.png</outputFile>
+                            <outputFile>${project.build.directory}\jmeter\results\TransactionsPerSecond.png</outputFile>
                         </graph>
                    </graphs>
                 </configuration>
+            </plugin>
+			<plugin>
+                <groupId>uk.co.automatictester</groupId>
+                <artifactId>jmeter-lightning-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>lightning</goal>
+                        </goals>
+                        <configuration>
+                            <mode>verify</mode>
+                            <testSetXml>${project.basedir}\src\test\resources\lightning.xml</testSetXml>
+                            <jmeterCsv>${project.basedir}\testrun.csv</jmeterCsv>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
